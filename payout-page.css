@@ -1,0 +1,1040 @@
+/**
+ * DotsBot Payout Page Styles
+ *
+ * Complete CSS implementation following the PAYOUT_PAGE_DESIGN.md specification
+ * and the DotsBot Design System (DESIGN_GUIDELINE.md)
+ *
+ * @version 1.0.0
+ */
+
+/* ============================================================================
+   CSS Variables (Design Tokens)
+   ========================================================================= */
+
+:root {
+  /* Primary Colors */
+  --primary-600: #4F46E5;
+  --primary-700: #4338CA;
+  --primary-500: #6366F1;
+
+  /* Secondary Colors */
+  --secondary-600: #7C3AED;
+  --secondary-700: #6D28D9;
+
+  /* Accent Colors */
+  --accent-blue: #3B82F6;
+  --accent-green: #10B981;
+  --accent-orange: #F59E0B;
+  --accent-red: #EF4444;
+
+  /* Neutral Colors */
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+
+  /* Semantic Colors */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+}
+
+/* ============================================================================
+   Base Styles
+   ========================================================================= */
+
+.payout-page {
+  min-height: 100vh;
+  background: var(--gray-50);
+  font-family: var(--font-sans);
+}
+
+/* ============================================================================
+   Page Header
+   ========================================================================= */
+
+.payout-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 24px;
+  border-bottom: 1px solid var(--gray-200);
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payout-header__title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.payout-header__actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ============================================================================
+   Balance Overview Section
+   ========================================================================= */
+
+.balance-overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 40px;
+}
+
+.balance-card {
+  background: white;
+  border: 2px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.balance-card:hover {
+  border-color: var(--primary-600);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.12);
+  transform: translateY(-2px);
+}
+
+.balance-card--primary {
+  border-color: var(--primary-600);
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+}
+
+.balance-card__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.balance-card--primary .balance-card__label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.balance-card__amount {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.balance-card--primary .balance-card__amount {
+  color: white;
+}
+
+.balance-card__subtext {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+}
+
+.balance-card--primary .balance-card__subtext {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.balance-card__growth {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--success);
+  padding: 4px 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 12px;
+}
+
+.balance-card__growth-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================================
+   Quick Actions Bar
+   ========================================================================= */
+
+.quick-actions {
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quick-actions__primary {
+  display: flex;
+  gap: 12px;
+}
+
+.quick-actions__filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ============================================================================
+   Payout History Section
+   ========================================================================= */
+
+.payout-history {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  padding: 0 40px;
+}
+
+.payout-history__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.payout-history__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.payout-history__filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Transaction Table */
+.payout-table {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.payout-table__header {
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.payout-table__row {
+  display: grid;
+  grid-template-columns: 140px 1fr 120px 120px 140px 100px;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--gray-200);
+  transition: background 0.15s ease;
+}
+
+.payout-table__row:last-child {
+  border-bottom: none;
+}
+
+.payout-table__row:not(.payout-table__header):hover {
+  background: var(--gray-50);
+}
+
+.payout-table__header-cell {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.payout-table__cell {
+  font-size: 14px;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+}
+
+.payout-table__date {
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.payout-table__amount {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.payout-table__status-badge {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.payout-table__status-badge--completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.payout-table__status-badge--pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #D97706;
+}
+
+.payout-table__status-badge--processing {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563EB;
+}
+
+.payout-table__status-badge--failed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+}
+
+.payout-table__status-badge--cancelled {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--gray-600);
+}
+
+.payout-table__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.payout-table__action-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary-600);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.payout-table__action-btn:hover {
+  background: var(--gray-50);
+  border-color: var(--primary-600);
+}
+
+/* ============================================================================
+   Payment Methods Section
+   ========================================================================= */
+
+.payment-methods {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  padding: 0 40px;
+}
+
+.payment-methods__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.payment-methods__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.payment-method-card {
+  background: white;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.payment-method-card--default {
+  border-color: var(--primary-600);
+}
+
+.payment-method-card:hover {
+  border-color: var(--primary-600);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.payment-method-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.payment-method-card__icon {
+  width: 48px;
+  height: 48px;
+  background: var(--gray-100);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.payment-method-card__type {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.payment-method-card__default-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--primary-600);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.payment-method-card__account {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+  font-family: var(--font-mono);
+}
+
+.payment-method-card__actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.payment-method-card__action {
+  flex: 1;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid var(--gray-200);
+  background: white;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.payment-method-card__action:hover {
+  background: var(--gray-50);
+  border-color: var(--primary-600);
+  color: var(--primary-600);
+}
+
+.payment-method-card__action--delete {
+  color: var(--error);
+}
+
+.payment-method-card__action--delete:hover {
+  border-color: var(--error);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+/* ============================================================================
+   Request Payout Modal
+   ========================================================================= */
+
+.payout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.payout-modal__content {
+  background: white;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.payout-modal__header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payout-modal__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.payout-modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 18px;
+}
+
+.payout-modal__close:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.payout-modal__body {
+  padding: 32px;
+}
+
+.payout-modal__footer {
+  padding: 24px 32px;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Form Components */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 16px;
+  color: var(--gray-900);
+  transition: all 0.2s;
+  font-family: var(--font-sans);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-input--error {
+  border-color: var(--error);
+}
+
+.form-input--error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-helper {
+  font-size: 13px;
+  color: var(--gray-600);
+  margin-top: 6px;
+}
+
+.form-error {
+  font-size: 13px;
+  color: var(--error);
+  margin-top: 6px;
+}
+
+.fee-breakdown {
+  background: var(--gray-50);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px 0;
+}
+
+.fee-breakdown__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.fee-breakdown__row--total {
+  border-top: 1px solid var(--gray-200);
+  padding-top: 12px;
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 16px;
+}
+
+/* ============================================================================
+   Settings Components
+   ========================================================================= */
+
+.settings-select {
+  padding: 8px 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--gray-700);
+  background: white;
+  cursor: pointer;
+  min-width: 180px;
+  transition: all 0.2s;
+}
+
+.settings-select:hover {
+  border-color: var(--primary-600);
+}
+
+.settings-select:focus {
+  outline: none;
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* ============================================================================
+   Buttons
+   ========================================================================= */
+
+.btn-primary {
+  background: var(--primary-600);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background: var(--primary-700);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:disabled {
+  background: var(--gray-300);
+  color: var(--gray-400);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary-600);
+  border: 2px solid var(--gray-200);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary-600);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.modal-btn-cancel {
+  padding: 12px 24px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background: white;
+  color: var(--gray-700);
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.modal-btn-cancel:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+
+.modal-btn-submit {
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: var(--primary-600);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-btn-submit:hover {
+  background: var(--primary-700);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.modal-btn-submit:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ============================================================================
+   Empty States
+   ========================================================================= */
+
+.empty-state {
+  text-align: center;
+  padding: 64px 32px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+}
+
+.empty-state__icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  font-size: 64px;
+  opacity: 0.3;
+}
+
+.empty-state__title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0 0 8px 0;
+}
+
+.empty-state__description {
+  font-size: 15px;
+  color: var(--gray-600);
+  margin: 0 0 24px 0;
+}
+
+/* ============================================================================
+   Loading States
+   ========================================================================= */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--gray-100) 0%,
+    var(--gray-200) 50%,
+    var(--gray-100) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton--text-sm {
+  height: 14px;
+  width: 60%;
+}
+
+.skeleton--text-md {
+  height: 16px;
+  width: 80%;
+}
+
+.skeleton--badge {
+  height: 24px;
+  width: 80px;
+  border-radius: 12px;
+}
+
+/* ============================================================================
+   Toast Notifications
+   ========================================================================= */
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 320px;
+  animation: slideIn 0.3s ease;
+  z-index: 9999;
+}
+
+.toast--success {
+  border-left: 4px solid var(--success);
+}
+
+.toast--error {
+  border-left: 4px solid var(--error);
+}
+
+.toast--warning {
+  border-left: 4px solid var(--warning);
+}
+
+.toast--info {
+  border-left: 4px solid var(--info);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   Utility Classes
+   ========================================================================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================================================
+   Responsive Design
+   ========================================================================= */
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .balance-overview {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 24px;
+  }
+
+  .balance-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .payout-header,
+  .payout-history,
+  .payment-methods {
+    padding: 0 24px;
+  }
+
+  .payment-methods__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (<768px) */
+@media (max-width: 767px) {
+  .payout-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 20px;
+  }
+
+  .balance-overview {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 20px;
+    margin: 24px auto;
+  }
+
+  .balance-card {
+    padding: 24px;
+  }
+
+  .balance-card__amount {
+    font-size: 28px;
+  }
+
+  .payout-history,
+  .payment-methods {
+    padding: 0 20px;
+  }
+
+  .payout-history__header,
+  .payment-methods__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Mobile Table View */
+  .payout-table__header {
+    display: none;
+  }
+
+  .payout-table__row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .payout-table__cell {
+    justify-content: space-between;
+  }
+
+  .payout-table__cell::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--gray-600);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .payment-methods__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payout-modal__content {
+    max-width: 100%;
+    margin: 20px;
+  }
+
+  .payout-modal__header,
+  .payout-modal__body,
+  .payout-modal__footer {
+    padding: 20px;
+  }
+
+  .payout-modal__footer {
+    flex-direction: column;
+  }
+
+  .modal-btn-cancel,
+  .modal-btn-submit {
+    width: 100%;
+  }
+}
+
+/* Extra Small (<480px) */
+@media (max-width: 479px) {
+  .balance-overview {
+    margin: 16px auto;
+  }
+
+  .balance-card {
+    padding: 20px;
+  }
+
+  .payout-modal {
+    padding: 0;
+  }
+
+  .payout-modal__content {
+    border-radius: 0;
+    max-height: 100vh;
+  }
+}
+
+/* ============================================================================
+   Print Styles
+   ========================================================================= */
+
+@media print {
+  .payout-header__actions,
+  .payout-history__filters,
+  .payment-methods__header button,
+  .payout-table__actions,
+  .payment-method-card__actions,
+  .payout-modal {
+    display: none;
+  }
+
+  .payout-page {
+    background: white;
+  }
+
+  .balance-card,
+  .payout-table,
+  .payment-method-card {
+    border-color: #000;
+    box-shadow: none;
+  }
+}
