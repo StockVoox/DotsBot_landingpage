@@ -378,13 +378,358 @@ DotsBot consolidates all customer communications—social media, email, SMS, voi
 
 ---
 
-#### 2.8 Pricing Section (Optional/Teaser)
-**Purpose:** Set expectations and drive leads
+#### 2.8 Pricing Plan Section
+**Purpose:** Present clear pricing tiers, drive conversion, and qualify leads
 
-**Approach:**
-- "Flexible Pricing for Teams of All Sizes"
-- "Contact Sales" CTA for custom enterprise pricing
-- Or simple tier preview: Starter / Professional / Enterprise
+**Strategy:**
+- Transparent pricing builds trust
+- Three-tier structure (good-better-best)
+- Highlight most popular plan
+- Annual vs monthly toggle
+- Clear feature comparison
+- Strong CTAs for each tier
+
+---
+
+**Pricing Tiers:**
+
+**1. Starter Plan**
+- **Target:** Small teams, startups (1-5 agents)
+- **Price:** $29/month per agent (billed monthly) or $24/month (billed annually)
+- **Headline:** "Perfect for Small Teams"
+- **Features:**
+  - Up to 5 agents
+  - 2,000 conversations/month
+  - 5 channels (website, email, Facebook, Instagram, WhatsApp)
+  - Basic integrations (Slack)
+  - Email support
+  - 30-day message history
+  - Basic reporting
+
+**2. Professional Plan** (Most Popular)
+- **Target:** Growing businesses (5-20 agents)
+- **Price:** $49/month per agent (billed monthly) or $39/month (billed annually)
+- **Headline:** "Best for Growing Teams"
+- **Badge:** "Most Popular" or "Recommended"
+- **Features:**
+  - Up to 20 agents
+  - Unlimited conversations
+  - All 12+ channels
+  - Advanced integrations (Slack, Shopify, Webhooks)
+  - Priority email & chat support
+  - Unlimited message history
+  - Advanced analytics & reporting
+  - Custom branding
+  - API access
+  - SLA: 99.9% uptime
+
+**3. Enterprise Plan**
+- **Target:** Large organizations (20+ agents)
+- **Price:** Custom pricing
+- **Headline:** "For Enterprise Teams"
+- **Features:**
+  - Unlimited agents
+  - Unlimited conversations
+  - All channels + custom channels
+  - All integrations + custom integrations
+  - Dedicated account manager
+  - 24/7 phone & priority support
+  - Unlimited history & data retention
+  - Advanced security & compliance
+  - SSO/SAML authentication
+  - Custom SLA
+  - On-premise deployment option
+  - Custom contracts & invoicing
+  - Training & onboarding
+
+---
+
+**Design Specifications:**
+
+**Layout Structure:**
+```
+[Section Header]
+  ↓
+[Annual/Monthly Toggle]
+  ↓
+[3-Column Pricing Grid]
+  ↓
+[Feature Comparison Table]
+  ↓
+[FAQ About Pricing]
+  ↓
+[Final CTA]
+```
+
+**Pricing Card Design:**
+
+```css
+.pricing-card {
+  background: white;
+  border: 2px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 40px 32px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pricing-card--popular {
+  border-color: #4F46E5;
+  border-width: 3px;
+  box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15);
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.pricing-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.pricing-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  color: white;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricing-card__header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.pricing-card__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.pricing-card__subtitle {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 24px;
+}
+
+.pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.pricing-card__price-currency {
+  font-size: 24px;
+  font-weight: 600;
+  color: #4F46E5;
+}
+
+.pricing-card__price-amount {
+  font-size: 56px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1;
+}
+
+.pricing-card__price-period {
+  font-size: 16px;
+  color: #6B7280;
+  margin-left: 4px;
+}
+
+.pricing-card__billing {
+  text-align: center;
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 32px;
+}
+
+.pricing-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+}
+
+.pricing-card__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 15px;
+  color: #374151;
+}
+
+.pricing-card__feature-icon {
+  width: 20px;
+  height: 20px;
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-card__cta {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.pricing-card__cta--primary {
+  background: #4F46E5;
+  color: white;
+  border: none;
+}
+
+.pricing-card__cta--primary:hover {
+  background: #4338CA;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+}
+
+.pricing-card__cta--secondary {
+  background: white;
+  color: #4F46E5;
+  border: 2px solid #E5E7EB;
+}
+
+.pricing-card__cta--secondary:hover {
+  border-color: #4F46E5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+```
+
+**Billing Toggle:**
+
+```css
+.billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.billing-toggle__label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6B7280;
+  transition: color 0.2s;
+}
+
+.billing-toggle__label--active {
+  color: #111827;
+}
+
+.billing-toggle__switch {
+  position: relative;
+  width: 56px;
+  height: 32px;
+  background: #E5E7EB;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.billing-toggle__switch--active {
+  background: #4F46E5;
+}
+
+.billing-toggle__slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.billing-toggle__slider--active {
+  transform: translateX(24px);
+}
+
+.billing-toggle__badge {
+  background: #10B981;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+```
+
+---
+
+**Feature Comparison Table:**
+
+After pricing cards, include a detailed feature comparison table:
+
+| Feature | Starter | Professional | Enterprise |
+|---------|---------|--------------|------------|
+| **Agents** | Up to 5 | Up to 20 | Unlimited |
+| **Conversations** | 2,000/month | Unlimited | Unlimited |
+| **Channels** | 5 channels | All 12+ channels | All + custom |
+| **Message History** | 30 days | Unlimited | Unlimited |
+| **Integrations** | Basic | Advanced | All + custom |
+| **Support** | Email | Email & Chat | 24/7 Phone |
+| **API Access** | ❌ | ✅ | ✅ |
+| **Custom Branding** | ❌ | ✅ | ✅ |
+| **SSO/SAML** | ❌ | ❌ | ✅ |
+| **SLA** | - | 99.9% | Custom |
+| **Dedicated Manager** | ❌ | ❌ | ✅ |
+| **On-Premise Option** | ❌ | ❌ | ✅ |
+
+---
+
+**Conversion Optimization:**
+
+**Trust Builders:**
+- "14-day free trial. No credit card required."
+- "Cancel anytime. No long-term contracts."
+- "Used by 500+ support teams worldwide"
+- Money-back guarantee badge
+- Security certifications (SOC 2, GDPR)
+
+**Social Proof:**
+- Customer logos under pricing cards
+- Testimonial quotes: "Saved us 10 hours/week"
+- G2/Capterra ratings
+
+**Urgency Elements:**
+- "Save 20% with annual billing"
+- "Limited time: First month free"
+- Live counter: "125 teams signed up this week"
+
+---
+
+**Pricing FAQs (Mini Section):**
+
+Include 3-4 quick FAQs right below pricing:
+
+1. **Can I change my plan later?**
+   - "Yes, upgrade or downgrade anytime. Changes take effect immediately."
+
+2. **What payment methods do you accept?**
+   - "Credit card, PayPal, and wire transfer for annual plans."
+
+3. **Is there a setup fee?**
+   - "No setup fees. Get started in minutes."
+
+4. **What happens when I exceed my conversation limit?**
+   - "We'll notify you and offer to upgrade. No conversations are blocked."
 
 ---
 
@@ -1113,6 +1458,7 @@ import HowItWorks from '@/components/sections/HowItWorks';
 import TechHighlights from '@/components/sections/TechHighlights';
 import Integrations from '@/components/sections/Integrations';
 import UseCases from '@/components/sections/UseCases';
+import Pricing from '@/components/sections/Pricing';
 import FAQ from '@/components/sections/FAQ';
 import FinalCTA from '@/components/sections/FinalCTA';
 import Footer from '@/components/sections/Footer';
@@ -1129,6 +1475,7 @@ export default function HomePage() {
         <TechHighlights />
         <Integrations />
         <UseCases />
+        <Pricing />
         <FAQ />
         <FinalCTA />
         <Footer />
@@ -1677,6 +2024,351 @@ const Channels = () => {
 };
 
 export default Channels;
+```
+
+---
+
+#### Pricing Component (components/sections/Pricing.tsx) - Client Component
+
+```tsx
+// components/sections/Pricing.tsx
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Check, ArrowRight } from 'lucide-react';
+import Button from '@/components/common/Button';
+
+type BillingCycle = 'monthly' | 'annual';
+
+interface PricingTier {
+  id: string;
+  name: string;
+  headline: string;
+  description: string;
+  price: {
+    monthly: number;
+    annual: number;
+  };
+  priceLabel?: string;
+  features: string[];
+  cta: {
+    text: string;
+    variant: 'primary' | 'secondary' | 'outline';
+  };
+  popular?: boolean;
+  badge?: string;
+}
+
+const pricingTiers: PricingTier[] = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    headline: 'Perfect for Small Teams',
+    description: 'Essential features for startups and small teams',
+    price: {
+      monthly: 29,
+      annual: 24,
+    },
+    features: [
+      'Up to 5 agents',
+      '2,000 conversations/month',
+      '5 channels (website, email, social)',
+      'Basic integrations (Slack)',
+      'Email support',
+      '30-day message history',
+      'Basic reporting',
+    ],
+    cta: {
+      text: 'Start Free Trial',
+      variant: 'outline',
+    },
+  },
+  {
+    id: 'professional',
+    name: 'Professional',
+    headline: 'Best for Growing Teams',
+    description: 'Advanced features for scaling businesses',
+    price: {
+      monthly: 49,
+      annual: 39,
+    },
+    features: [
+      'Up to 20 agents',
+      'Unlimited conversations',
+      'All 12+ channels',
+      'Advanced integrations (Slack, Shopify, Webhooks)',
+      'Priority email & chat support',
+      'Unlimited message history',
+      'Advanced analytics & reporting',
+      'Custom branding',
+      'API access',
+      'SLA: 99.9% uptime',
+    ],
+    cta: {
+      text: 'Start Free Trial',
+      variant: 'primary',
+    },
+    popular: true,
+    badge: 'Most Popular',
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    headline: 'For Enterprise Teams',
+    description: 'Custom solutions for large organizations',
+    price: {
+      monthly: 0,
+      annual: 0,
+    },
+    priceLabel: 'Custom',
+    features: [
+      'Unlimited agents',
+      'Unlimited conversations',
+      'All channels + custom channels',
+      'All integrations + custom integrations',
+      'Dedicated account manager',
+      '24/7 phone & priority support',
+      'Unlimited history & data retention',
+      'Advanced security & compliance',
+      'SSO/SAML authentication',
+      'Custom SLA',
+      'On-premise deployment option',
+      'Custom contracts & invoicing',
+      'Training & onboarding',
+    ],
+    cta: {
+      text: 'Talk to Sales',
+      variant: 'secondary',
+    },
+  },
+];
+
+const Pricing = () => {
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>('annual');
+
+  return (
+    <section id="pricing" className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <div className="container mx-auto px-6">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <p className="text-primary-600 font-semibold text-sm uppercase tracking-wide mb-3">
+            Pricing Plans
+          </p>
+
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Simple, Transparent Pricing
+          </h2>
+
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            Choose the perfect plan for your team. All plans include a 14-day free trial.
+          </p>
+
+          {/* Billing toggle */}
+          <div className="inline-flex items-center gap-4 p-1 bg-white border-2 border-gray-200 rounded-full">
+            <button
+              onClick={() => setBillingCycle('monthly')}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${
+                billingCycle === 'monthly'
+                  ? 'bg-primary-600 text-white shadow-md'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingCycle('annual')}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition-all relative ${
+                billingCycle === 'annual'
+                  ? 'bg-primary-600 text-white shadow-md'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Annual
+              <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs px-2 py-1 rounded-md whitespace-nowrap">
+                Save 20%
+              </span>
+            </button>
+          </div>
+        </motion.div>
+
+        {/* Pricing cards */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+          {pricingTiers.map((tier, index) => (
+            <motion.div
+              key={tier.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative bg-white rounded-2xl p-8 transition-all hover:shadow-2xl ${
+                tier.popular
+                  ? 'border-3 border-primary-600 shadow-xl scale-105 z-10'
+                  : 'border-2 border-gray-200 hover:-translate-y-2'
+              }`}
+            >
+              {/* Popular badge */}
+              {tier.badge && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-600 to-purple-600 text-white px-6 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                  {tier.badge}
+                </div>
+              )}
+
+              {/* Card header */}
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {tier.name}
+                </h3>
+                <p className="text-sm text-gray-600 mb-6">
+                  {tier.headline}
+                </p>
+
+                {/* Pricing */}
+                <div className="mb-2">
+                  {tier.priceLabel ? (
+                    <div className="text-5xl font-bold text-gray-900">
+                      {tier.priceLabel}
+                    </div>
+                  ) : (
+                    <div className="flex items-baseline justify-center">
+                      <span className="text-2xl font-semibold text-primary-600">$</span>
+                      <span className="text-5xl font-bold text-gray-900">
+                        {billingCycle === 'monthly' ? tier.price.monthly : tier.price.annual}
+                      </span>
+                      <span className="text-gray-600 ml-2">/agent/month</span>
+                    </div>
+                  )}
+                </div>
+
+                {!tier.priceLabel && (
+                  <p className="text-sm text-gray-500">
+                    {billingCycle === 'monthly'
+                      ? 'Billed monthly'
+                      : `Billed annually ($${tier.price.annual * 12}/agent/year)`
+                    }
+                  </p>
+                )}
+              </div>
+
+              {/* CTA button */}
+              <Button
+                variant={tier.cta.variant}
+                className="w-full mb-8"
+              >
+                {tier.cta.text}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+
+              {/* Features list */}
+              <ul className="space-y-4">
+                {tier.features.map((feature, featureIndex) => (
+                  <li
+                    key={featureIndex}
+                    className="flex items-start gap-3 text-sm text-gray-600"
+                  >
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Trust builders */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center space-y-4"
+        >
+          <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <Check className="w-5 h-5 text-green-500" />
+              <span>14-day free trial</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="w-5 h-5 text-green-500" />
+              <span>No credit card required</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="w-5 h-5 text-green-500" />
+              <span>Cancel anytime</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="w-5 h-5 text-green-500" />
+              <span>24/7 customer support</span>
+            </div>
+          </div>
+
+          <p className="text-gray-500 text-sm">
+            All prices in USD. Taxes may apply.
+          </p>
+        </motion.div>
+
+        {/* Pricing FAQs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-20 max-w-4xl mx-auto"
+        >
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
+            Pricing FAQs
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-2">
+                What happens after my free trial?
+              </h4>
+              <p className="text-sm text-gray-600">
+                You can continue with a paid plan or downgrade to our free tier. No credit card required for the trial.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Can I change plans later?
+              </h4>
+              <p className="text-sm text-gray-600">
+                Yes! You can upgrade, downgrade, or cancel your plan at any time. Changes take effect immediately.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Do you offer discounts for non-profits?
+              </h4>
+              <p className="text-sm text-gray-600">
+                Yes, we offer special pricing for non-profit organizations and educational institutions. Contact sales for details.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-2">
+                What payment methods do you accept?
+              </h4>
+              <p className="text-sm text-gray-600">
+                We accept all major credit cards, PayPal, and wire transfers for annual enterprise plans.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;
 ```
 
 ---
