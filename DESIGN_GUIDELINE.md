@@ -715,88 +715,243 @@ h1 {
 ### 4.1 Technology Stack
 
 **Framework:**
-- React 18+ with TypeScript (recommended) OR Vue 3 (to match DotsBot core)
-- If Vue: Composition API, `<script setup>`, TypeScript
+- **Next.js 14+** with App Router (for superior SEO and performance)
+- **TypeScript** for type safety
+- **React 18+** (bundled with Next.js)
 
-**Build Tool:**
-- Vite 5+ for fast dev experience and optimized builds
+**Why Next.js:**
+- **Server-Side Rendering (SSR):** Better SEO with pre-rendered HTML
+- **Static Site Generation (SSG):** Optimal performance for landing pages
+- **Automatic Image Optimization:** Built-in next/image component
+- **Built-in Font Optimization:** next/font with automatic subsetting
+- **Metadata API:** Enhanced SEO with type-safe metadata
+- **Sitemap & robots.txt:** Automatic generation
+- **Code Splitting:** Automatic route-based code splitting
+- **Edge Runtime:** Deploy to edge for faster global performance
 
 **Styling:**
-- Tailwind CSS 3+ (to match DotsBot design system)
-- PostCSS for additional processing
+- **Tailwind CSS 4+** (to match DotsBot design system)
+- **PostCSS** for additional processing
+- **CSS Modules** (optional, for scoped styles)
 
 **Additional Libraries:**
-- **Animation:** Framer Motion (React) or @vueuse/motion (Vue)
+- **Animation:** Framer Motion (client-side animations)
 - **Icons:** Heroicons or Lucide Icons
-- **Forms:** React Hook Form (React) or VeeValidate (Vue)
-- **Analytics:** Google Analytics 4 or Mixpanel
+- **Forms:** React Hook Form
+- **Analytics:** Google Analytics 4, Vercel Analytics, or Mixpanel
+- **SEO:** next-seo (optional, for advanced SEO features)
 
 ---
 
-### 4.2 Project Structure (React + Vite Example)
+### 4.2 Project Structure (Next.js 14+ App Router)
 
 ```
 DotsBot_landingpage/
+├── app/
+│   ├── layout.tsx              # Root layout with metadata
+│   ├── page.tsx                # Homepage (landing page)
+│   ├── globals.css             # Global styles + Tailwind imports
+│   ├── sitemap.ts              # Dynamic sitemap generation
+│   ├── robots.ts               # robots.txt generation
+│   ├── opengraph-image.tsx     # Dynamic OG image (optional)
+│   ├── privacy/
+│   │   └── page.tsx            # Privacy policy page
+│   ├── terms/
+│   │   └── page.tsx            # Terms of service page
+│   └── api/
+│       └── contact/
+│           └── route.ts        # API route for contact form
+├── components/
+│   ├── common/
+│   │   ├── Button.tsx
+│   │   ├── Card.tsx
+│   │   ├── Section.tsx
+│   │   └── ChannelIcon.tsx
+│   ├── sections/
+│   │   ├── Hero.tsx
+│   │   ├── Channels.tsx
+│   │   ├── Features.tsx
+│   │   ├── HowItWorks.tsx
+│   │   ├── TechHighlights.tsx
+│   │   ├── Integrations.tsx
+│   │   ├── UseCases.tsx
+│   │   ├── FAQ.tsx
+│   │   ├── FinalCTA.tsx
+│   │   └── Footer.tsx
+│   └── layout/
+│       ├── Header.tsx
+│       └── Navigation.tsx
 ├── public/
 │   ├── favicon.ico
 │   ├── logo.svg
 │   ├── og-image.png
-│   └── screenshots/
-├── src/
-│   ├── assets/
-│   │   ├── images/
-│   │   ├── icons/
-│   │   └── videos/
-│   ├── components/
-│   │   ├── common/
-│   │   │   ├── Button.tsx
-│   │   │   ├── Card.tsx
-│   │   │   ├── Section.tsx
-│   │   │   └── ChannelIcon.tsx
-│   │   ├── sections/
-│   │   │   ├── Hero.tsx
-│   │   │   ├── Channels.tsx
-│   │   │   ├── Features.tsx
-│   │   │   ├── HowItWorks.tsx
-│   │   │   ├── TechHighlights.tsx
-│   │   │   ├── Integrations.tsx
-│   │   │   ├── UseCases.tsx
-│   │   │   ├── FAQ.tsx
-│   │   │   ├── FinalCTA.tsx
-│   │   │   └── Footer.tsx
-│   │   └── layout/
-│   │       ├── Header.tsx
-│   │       └── Navigation.tsx
-│   ├── styles/
-│   │   ├── globals.css
-│   │   ├── variables.css
-│   │   └── animations.css
-│   ├── utils/
-│   │   ├── analytics.ts
-│   │   └── constants.ts
-│   ├── types/
-│   │   └── index.ts
-│   ├── App.tsx
-│   └── main.tsx
-├── index.html
-├── tailwind.config.js
-├── postcss.config.js
-├── vite.config.ts
-├── tsconfig.json
+│   ├── screenshots/
+│   ├── icons/
+│   └── videos/
+├── lib/
+│   ├── analytics.ts            # Analytics utilities
+│   ├── constants.ts            # App constants
+│   └── utils.ts                # Utility functions
+├── types/
+│   └── index.ts                # TypeScript types
+├── styles/
+│   ├── variables.css           # CSS custom properties
+│   └── animations.css          # Reusable animations
+├── tailwind.config.ts          # Tailwind configuration
+├── postcss.config.js           # PostCSS configuration
+├── next.config.js              # Next.js configuration
+├── tsconfig.json               # TypeScript configuration
 ├── package.json
 └── README.md
 ```
+
+**Key Differences from Traditional React:**
+- **app/ directory:** Next.js 14+ App Router structure
+- **layout.tsx:** Shared layout and metadata configuration
+- **page.tsx:** Route components (not App.tsx)
+- **sitemap.ts & robots.ts:** SEO files for search engines
+- **opengraph-image.tsx:** Dynamic Open Graph image generation
+- **No index.html:** Next.js generates HTML automatically
 
 ---
 
 ### 4.3 Component Implementation Examples
 
-#### Hero Component (React + TypeScript)
+#### Root Layout (app/layout.tsx) - Server Component
 
 ```tsx
-// src/components/sections/Hero.tsx
+// app/layout.tsx
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://dotsbot.com'),
+  title: {
+    default: 'DotsBot - Unified Customer Messaging Platform',
+    template: '%s | DotsBot',
+  },
+  description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers. Unify conversations from social media, email, SMS, and more.',
+  keywords: ['customer messaging', 'unified inbox', 'support platform', 'omnichannel', 'real-time chat', 'customer service software'],
+  authors: [{ name: 'DotsBot Team' }],
+  creator: 'DotsBot',
+  publisher: 'DotsBot',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://dotsbot.com',
+    title: 'DotsBot - Unified Customer Messaging Platform',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    siteName: 'DotsBot',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DotsBot Dashboard',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DotsBot - Unified Customer Messaging Platform',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    images: ['/og-image.png'],
+    creator: '@dotsbot',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body className="antialiased">
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+#### Homepage (app/page.tsx) - Server Component
+
+```tsx
+// app/page.tsx
+import Hero from '@/components/sections/Hero';
+import Channels from '@/components/sections/Channels';
+import Features from '@/components/sections/Features';
+import HowItWorks from '@/components/sections/HowItWorks';
+import TechHighlights from '@/components/sections/TechHighlights';
+import Integrations from '@/components/sections/Integrations';
+import UseCases from '@/components/sections/UseCases';
+import FAQ from '@/components/sections/FAQ';
+import FinalCTA from '@/components/sections/FinalCTA';
+import Footer from '@/components/sections/Footer';
+
+export default function HomePage() {
+  return (
+    <main>
+      <Hero />
+      <Channels />
+      <Features />
+      <HowItWorks />
+      <TechHighlights />
+      <Integrations />
+      <UseCases />
+      <FAQ />
+      <FinalCTA />
+      <Footer />
+    </main>
+  );
+}
+```
+
+---
+
+#### Hero Component (components/sections/Hero.tsx) - Client Component
+
+```tsx
+// components/sections/Hero.tsx
+'use client';
+
 import { motion } from 'framer-motion';
-import Button from '../common/Button';
+import Image from 'next/image';
+import Button from '@/components/common/Button';
 
 const Hero = () => {
   return (
@@ -830,10 +985,28 @@ const Hero = () => {
 
             <div className="mt-8 flex items-center gap-6">
               <div className="flex -space-x-2">
-                {/* Avatar images */}
-                <img src="/avatars/1.png" alt="" className="w-10 h-10 rounded-full border-2 border-white" />
-                <img src="/avatars/2.png" alt="" className="w-10 h-10 rounded-full border-2 border-white" />
-                <img src="/avatars/3.png" alt="" className="w-10 h-10 rounded-full border-2 border-white" />
+                {/* Avatar images using Next.js Image */}
+                <Image
+                  src="/avatars/1.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="rounded-full border-2 border-white"
+                />
+                <Image
+                  src="/avatars/2.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="rounded-full border-2 border-white"
+                />
+                <Image
+                  src="/avatars/3.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="rounded-full border-2 border-white"
+                />
               </div>
               <p className="text-sm text-gray-600">
                 Used by <strong className="text-gray-900">500+</strong> support teams
@@ -841,16 +1014,19 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Hero visual */}
+          {/* Hero visual - optimized with Next.js Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <img
+            <Image
               src="/screenshots/dashboard-hero.png"
-              alt="DotsBot Dashboard"
+              alt="DotsBot Dashboard showing unified inbox with multiple channels"
+              width={1400}
+              height={900}
+              priority
               className="rounded-lg shadow-2xl"
             />
 
@@ -884,12 +1060,16 @@ const Hero = () => {
 export default Hero;
 ```
 
+**Note:** Components using client-side features (Framer Motion, useState, etc.) must have `'use client'` directive.
+
 ---
 
-#### Button Component (React + TypeScript)
+#### Button Component - Client Component
 
 ```tsx
-// src/components/common/Button.tsx
+// components/common/Button.tsx
+'use client';
+
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { clsx } from 'clsx';
 
@@ -992,12 +1172,14 @@ export default FeatureCard;
 
 ---
 
-#### Channels Section Component
+#### Channels Section Component - Client Component
 
 ```tsx
-// src/components/sections/Channels.tsx
+// components/sections/Channels.tsx
+'use client';
+
 import { motion } from 'framer-motion';
-import ChannelIcon from '../common/ChannelIcon';
+import Image from 'next/image';
 
 const channels = [
   { name: 'Website', icon: '/icons/website.svg', color: 'blue' },
@@ -1043,13 +1225,25 @@ const Channels = () => {
         {/* Channel grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {channels.map((channel, index) => (
-            <ChannelIcon
+            <motion.div
               key={channel.name}
-              name={channel.name}
-              icon={channel.icon}
-              color={channel.color}
-              index={index}
-            />
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+              className="flex flex-col items-center gap-3 p-4 bg-gray-50 border-2 border-gray-200 rounded-xl hover:border-primary-500 hover:bg-white hover:shadow-lg transition-all cursor-pointer group"
+            >
+              <Image
+                src={channel.icon}
+                alt={`${channel.name} icon`}
+                width={40}
+                height={40}
+                className="group-hover:scale-110 transition-transform"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                {channel.name}
+              </span>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -1064,116 +1258,613 @@ export default Channels;
 
 ### 4.4 Performance Optimization
 
-#### Image Optimization
+#### Image Optimization with Next.js Image
+
+Next.js automatically optimizes images with the `<Image />` component:
+
 ```tsx
-// Use next-gen formats (WebP, AVIF) with fallbacks
-<picture>
-  <source srcset="/hero.avif" type="image/avif" />
-  <source srcset="/hero.webp" type="image/webp" />
-  <img src="/hero.png" alt="DotsBot Dashboard" loading="lazy" />
-</picture>
+import Image from 'next/image';
+
+// Automatic optimization: WebP/AVIF, lazy loading, responsive sizes
+<Image
+  src="/screenshots/dashboard.png"
+  alt="DotsBot Dashboard"
+  width={1400}
+  height={900}
+  priority={false}  // true for above-the-fold images
+  quality={85}      // 1-100, default 75
+  placeholder="blur" // optional blur-up effect
+  blurDataURL="data:image/..." // optional low-res placeholder
+/>
 ```
 
-#### Lazy Loading
-```tsx
-import { lazy, Suspense } from 'react';
+**Next.js Image Benefits:**
+- Automatic format optimization (WebP, AVIF)
+- Lazy loading by default (priority={true} disables)
+- Responsive image sizes with srcset
+- Prevents Cumulative Layout Shift (CLS)
+- On-demand optimization (not at build time)
 
-// Lazy load heavy components
-const FAQ = lazy(() => import('./sections/FAQ'));
-const Footer = lazy(() => import('./sections/Footer'));
+**Image Configuration:**
 
-function App() {
-  return (
-    <>
-      <Hero />
-      <Channels />
-      <Features />
-
-      <Suspense fallback={<LoadingSpinner />}>
-        <FAQ />
-        <Footer />
-      </Suspense>
-    </>
-  );
-}
-```
-
-#### Code Splitting
 ```js
-// vite.config.ts
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'animations': ['framer-motion'],
-        },
-      },
-    },
+// next.config.js
+module.exports = {
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: ['cdn.dotsbot.com'], // external image domains
   },
-});
+};
 ```
 
 ---
 
-### 4.5 SEO Optimization
+#### Font Optimization with next/font
 
-#### Meta Tags
-```html
-<!-- index.html -->
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```tsx
+// app/layout.tsx
+import { Inter, JetBrains_Mono } from 'next/font/google';
 
-  <!-- Primary Meta Tags -->
-  <title>DotsBot - Unified Customer Messaging Platform</title>
-  <meta name="title" content="DotsBot - Unified Customer Messaging Platform" />
-  <meta name="description" content="Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers. Unify conversations from social media, email, SMS, and more." />
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://dotsbot.com/" />
-  <meta property="og:title" content="DotsBot - Unified Customer Messaging Platform" />
-  <meta property="og:description" content="Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers." />
-  <meta property="og:image" content="https://dotsbot.com/og-image.png" />
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+});
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://dotsbot.com/" />
-  <meta property="twitter:title" content="DotsBot - Unified Customer Messaging Platform" />
-  <meta property="twitter:description" content="Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers." />
-  <meta property="twitter:image" content="https://dotsbot.com/og-image.png" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-</head>
-```
-
-#### Structured Data (JSON-LD)
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "DotsBot",
-  "applicationCategory": "BusinessApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "description": "Unified customer messaging platform with real-time conversations across 13+ channels",
-  "operatingSystem": "Web",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "120"
-  }
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="font-sans">{children}</body>
+    </html>
+  );
 }
-</script>
 ```
+
+**Benefits:**
+- Zero layout shift (font metrics calculated at build time)
+- No external network requests for Google Fonts
+- Automatic subsetting (only include used characters)
+- Self-hosting optimization
+
+---
+
+#### Dynamic Imports & Code Splitting
+
+Next.js automatically code-splits by route. For additional optimization:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+// Lazy load components with no SSR
+const AnimatedChart = dynamic(() => import('@/components/AnimatedChart'), {
+  ssr: false,
+  loading: () => <ChartSkeleton />,
+});
+
+// Lazy load heavy libraries
+const HeavyComponent = dynamic(
+  () => import('@/components/HeavyComponent'),
+  {
+    loading: () => <Spinner />,
+    ssr: true, // default
+  }
+);
+```
+
+---
+
+#### Static Generation for Maximum Performance
+
+```tsx
+// app/page.tsx - Automatically static by default
+export default function HomePage() {
+  return <LandingPageContent />;
+}
+
+// Force static generation at build time
+export const dynamic = 'force-static';
+
+// Revalidate every 24 hours (ISR)
+export const revalidate = 86400;
+```
+
+---
+
+#### Performance Monitoring
+
+```tsx
+// app/layout.tsx
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <SpeedInsights />
+        <Analytics />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+### 4.5 Advanced SEO Optimization with Next.js
+
+Next.js provides industry-leading SEO capabilities out of the box. Here's a comprehensive implementation:
+
+---
+
+#### Metadata API (app/layout.tsx)
+
+Next.js 14+ uses the Metadata API for type-safe, server-rendered meta tags:
+
+```tsx
+// app/layout.tsx
+import type { Metadata, Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#4F46E5',
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://dotsbot.com'),
+
+  // Basic metadata
+  title: {
+    default: 'DotsBot - Unified Customer Messaging Platform',
+    template: '%s | DotsBot',
+  },
+  description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers. Unify conversations from social media, email, SMS, and more.',
+
+  // Keywords for SEO
+  keywords: [
+    'customer messaging platform',
+    'unified inbox',
+    'omnichannel support',
+    'real-time chat',
+    'customer service software',
+    'support ticket system',
+    'live chat software',
+    'WhatsApp business integration',
+    'social media inbox',
+    'customer communication platform'
+  ],
+
+  // Author and creator
+  authors: [{ name: 'DotsBot Team', url: 'https://dotsbot.com' }],
+  creator: 'DotsBot',
+  publisher: 'DotsBot Inc.',
+
+  // Open Graph metadata
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://dotsbot.com',
+    siteName: 'DotsBot',
+    title: 'DotsBot - Unified Customer Messaging Platform',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DotsBot Dashboard - Unified Inbox',
+        type: 'image/png',
+      },
+    ],
+  },
+
+  // Twitter metadata
+  twitter: {
+    card: 'summary_large_image',
+    site: '@dotsbot',
+    creator: '@dotsbot',
+    title: 'DotsBot - Unified Customer Messaging Platform',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    images: ['/twitter-image.png'],
+  },
+
+  // Robots directives
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+
+  // Icons
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-icon.png' },
+      { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+
+  // Web app manifest
+  manifest: '/site.webmanifest',
+
+  // Verification for search consoles
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+    bing: 'your-bing-verification-code',
+  },
+
+  // Alternate languages (if applicable)
+  alternates: {
+    canonical: 'https://dotsbot.com',
+    languages: {
+      'en-US': 'https://dotsbot.com',
+      'es-ES': 'https://dotsbot.com/es',
+    },
+  },
+
+  // Category
+  category: 'technology',
+};
+```
+
+---
+
+#### Dynamic Page Metadata (generateMetadata)
+
+For pages with dynamic content:
+
+```tsx
+// app/blog/[slug]/page.tsx
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getPost(params.slug);
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [post.coverImage],
+      type: 'article',
+      publishedTime: post.publishedAt,
+      authors: [post.author],
+    },
+  };
+}
+```
+
+---
+
+#### Sitemap Generation (app/sitemap.ts)
+
+Next.js can dynamically generate sitemaps:
+
+```ts
+// app/sitemap.ts
+import { MetadataRoute } from 'next';
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://dotsbot.com';
+
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/features`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/integrations`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/docs`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+  ];
+}
+```
+
+**Accessing sitemap:** `https://dotsbot.com/sitemap.xml`
+
+---
+
+#### Robots.txt Generation (app/robots.ts)
+
+```ts
+// app/robots.ts
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  const baseUrl = 'https://dotsbot.com';
+
+  return {
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/', '/admin/', '/private/'],
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: ['/api/', '/admin/'],
+        crawlDelay: 0,
+      },
+    ],
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
+  };
+}
+```
+
+**Accessing robots.txt:** `https://dotsbot.com/robots.txt`
+
+---
+
+#### JSON-LD Structured Data
+
+Add structured data for rich search results:
+
+```tsx
+// components/StructuredData.tsx
+export function SoftwareApplicationSchema() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'DotsBot',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    description: 'Unified customer messaging platform with real-time conversations across 13+ channels',
+    featureList: [
+      'Unified inbox',
+      'Real-time messaging',
+      '13+ channel integrations',
+      'Developer API',
+      'Custom webhooks',
+    ],
+    screenshot: 'https://dotsbot.com/screenshots/dashboard.png',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '120',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'DotsBot Inc.',
+      url: 'https://dotsbot.com',
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function OrganizationSchema() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'DotsBot',
+    url: 'https://dotsbot.com',
+    logo: 'https://dotsbot.com/logo.png',
+    sameAs: [
+      'https://twitter.com/dotsbot',
+      'https://linkedin.com/company/dotsbot',
+      'https://github.com/dotsbot',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+1-555-123-4567',
+      contactType: 'Customer Service',
+      email: 'support@dotsbot.com',
+      availableLanguage: ['English'],
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function FAQSchema({ faqs }: { faqs: Array<{ question: string; answer: string }> }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+```
+
+**Usage in layout:**
+
+```tsx
+// app/layout.tsx
+import { SoftwareApplicationSchema, OrganizationSchema } from '@/components/StructuredData';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <SoftwareApplicationSchema />
+        <OrganizationSchema />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+#### Dynamic OG Image Generation
+
+Generate Open Graph images dynamically:
+
+```tsx
+// app/opengraph-image.tsx (or app/og/route.tsx for more control)
+import { ImageResponse } from 'next/og';
+
+export const runtime = 'edge';
+export const alt = 'DotsBot - Unified Customer Messaging Platform';
+export const size = {
+  width: 1200,
+  height: 630,
+};
+export const contentType = 'image/png';
+
+export default async function OGImage() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#4F46E5',
+          fontSize: 64,
+          fontWeight: 700,
+          color: 'white',
+        }}
+      >
+        <div style={{ marginBottom: 20 }}>DotsBot</div>
+        <div style={{ fontSize: 32, fontWeight: 400 }}>
+          Unified Customer Messaging Platform
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+    }
+  );
+}
+```
+
+---
+
+#### Canonical URLs
+
+Prevent duplicate content issues:
+
+```tsx
+// app/layout.tsx
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://dotsbot.com',
+  },
+};
+
+// For specific pages
+// app/features/page.tsx
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://dotsbot.com/features',
+  },
+};
+```
+
+---
+
+#### SEO Best Practices Checklist
+
+- [ ] **Metadata API configured** in layout.tsx
+- [ ] **Dynamic sitemap** generated (app/sitemap.ts)
+- [ ] **Robots.txt** configured (app/robots.ts)
+- [ ] **Structured data** (JSON-LD) for Software, Organization, FAQ
+- [ ] **Canonical URLs** set for all pages
+- [ ] **Open Graph images** optimized (1200x630px)
+- [ ] **Alt text** on all images
+- [ ] **Semantic HTML** (h1, h2, article, section, nav)
+- [ ] **Loading performance** optimized (Next.js Image, fonts)
+- [ ] **Mobile-friendly** and responsive
+- [ ] **Page speed** >90 on Lighthouse
+- [ ] **HTTPS** enforced
+- [ ] **Google Search Console** verified
+- [ ] **XML sitemap** submitted to search engines
 
 ---
 
@@ -1369,22 +2060,69 @@ const Hero = () => {
 
 ### 7.1 Setup Instructions
 
+#### Initial Setup with Next.js
+
 ```bash
-# Clone repository
+# Option 1: Clone existing repository
 git clone https://github.com/StockVoox/DotsBot_landingpage.git
 cd DotsBot_landingpage
-
-# Install dependencies
 npm install
 
-# Start development server
+# Option 2: Create new Next.js project
+npx create-next-app@latest dotsbot-landingpage --typescript --tailwind --app --src-dir=false --import-alias="@/*"
+cd dotsbot-landingpage
+```
+
+#### Development Commands
+
+```bash
+# Start development server (http://localhost:3000)
 npm run dev
 
 # Build for production
 npm run build
 
-# Preview production build
-npm run preview
+# Start production server
+npm start
+
+# Run linting
+npm run lint
+
+# Type checking
+npx tsc --noEmit
+```
+
+#### Environment Variables
+
+Create a `.env.local` file:
+
+```env
+# .env.local
+NEXT_PUBLIC_SITE_URL=https://dotsbot.com
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
+
+# Contact form (if using)
+CONTACT_EMAIL=support@dotsbot.com
+
+# Optional: CMS or API keys
+# NEXT_PUBLIC_CMS_API_KEY=xxx
+```
+
+#### Package.json Scripts
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "analyze": "ANALYZE=true next build"
+  }
+}
 ```
 
 ---
@@ -1545,46 +2283,116 @@ docs: update README with setup instructions
 
 ## Appendix C: Recommended Tools & Libraries
 
-**Development:**
+**Core Framework:**
+- **Next.js:** https://nextjs.org (React framework)
 - **React:** https://react.dev
-- **Vite:** https://vitejs.dev
-- **Tailwind CSS:** https://tailwindcss.com
-- **Framer Motion:** https://www.framer.com/motion
 - **TypeScript:** https://www.typescriptlang.org
+- **Tailwind CSS:** https://tailwindcss.com
 
-**Design:**
-- **Figma:** For mockups and prototyping
+**UI & Animation:**
+- **Framer Motion:** https://www.framer.com/motion
 - **Heroicons:** https://heroicons.com (free icon set)
 - **Lucide Icons:** https://lucide.dev (alternative icons)
-- **TinyPNG:** https://tinypng.com (image compression)
-- **SVGOMG:** https://jakearchibald.github.io/svgomg (SVG optimization)
+- **Radix UI:** https://www.radix-ui.com (headless components)
+- **shadcn/ui:** https://ui.shadcn.com (copy-paste components)
 
-**Performance:**
+**Forms & Validation:**
+- **React Hook Form:** https://react-hook-form.com
+- **Zod:** https://zod.dev (TypeScript-first schema validation)
+
+**SEO & Analytics:**
+- **next-seo:** https://github.com/garmeeh/next-seo (advanced SEO)
+- **Google Analytics 4:** https://analytics.google.com
+- **Vercel Analytics:** https://vercel.com/analytics (built-in)
+- **Vercel Speed Insights:** https://vercel.com/docs/speed-insights
+- **Mixpanel:** https://mixpanel.com (optional)
+- **Hotjar:** https://www.hotjar.com (heatmaps, recordings)
+
+**Design Tools:**
+- **Figma:** For mockups and prototyping
+- **TinyPNG:** https://tinypng.com (image compression)
+- **Squoosh:** https://squoosh.app (advanced image optimization)
+- **SVGOMG:** https://jakearchibald.github.io/svgomg (SVG optimization)
+- **Coolors:** https://coolors.co (color palette generator)
+- **Realtime Colors:** https://realtimecolors.com (preview color palettes)
+
+**Performance Testing:**
 - **Lighthouse:** Built into Chrome DevTools
 - **WebPageTest:** https://www.webpagetest.org
-- **Bundle Analyzer:** Visualize bundle sizes
+- **PageSpeed Insights:** https://pagespeed.web.dev
+- **Bundle Analyzer:** `@next/bundle-analyzer`
+- **next-bundle-analyzer:** Visualize Next.js bundle sizes
 
 **Accessibility:**
 - **WAVE:** https://wave.webaim.org
 - **axe DevTools:** Browser extension
 - **Contrast Checker:** https://webaim.org/resources/contrastchecker
+- **Pa11y:** https://pa11y.org (automated testing)
 
-**Analytics:**
-- **Google Analytics 4:** https://analytics.google.com
-- **Mixpanel:** https://mixpanel.com (optional)
-- **Hotjar:** https://www.hotjar.com (heatmaps, recordings)
+**Development Tools:**
+- **ESLint:** Code linting (built into Next.js)
+- **Prettier:** Code formatting
+- **Husky:** Git hooks
+- **lint-staged:** Run linters on staged files
+- **Commitlint:** Enforce commit message conventions
+
+**Deployment:**
+- **Vercel:** https://vercel.com (recommended, built by Next.js creators)
+- **Netlify:** https://www.netlify.com
+- **Cloudflare Pages:** https://pages.cloudflare.com
+- **AWS Amplify:** https://aws.amazon.com/amplify
+
+**Recommended Package Installations:**
+
+```bash
+# Core dependencies
+npm install next@latest react@latest react-dom@latest typescript @types/react @types/node
+
+# Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+# Animation
+npm install framer-motion
+
+# Forms
+npm install react-hook-form zod @hookform/resolvers
+
+# Icons
+npm install lucide-react
+# or
+npm install @heroicons/react
+
+# Analytics
+npm install @vercel/analytics @vercel/speed-insights
+
+# Utilities
+npm install clsx tailwind-merge
+
+# Development
+npm install -D prettier eslint-config-prettier @next/bundle-analyzer
+```
 
 ---
 
 ## Document Metadata
 
-**Version:** 1.0.0
+**Version:** 2.0.0
 **Last Updated:** 2025-11-14
 **Author:** AI Assistant (Claude)
 **Maintained By:** DotsBot Development Team
 
 **Change Log:**
-- 2025-11-14: Initial comprehensive guideline created
+- 2025-11-14 (v2.0): Updated for Next.js 14+ with App Router and enhanced SEO implementation
+  - Replaced React + Vite with Next.js framework
+  - Updated project structure to Next.js App Router
+  - Enhanced SEO section with Metadata API, sitemap, robots.txt, structured data
+  - Added Next.js Image and Font optimization
+  - Updated all component examples for Next.js patterns
+  - Added Server Component vs Client Component guidance
+  - Expanded recommended tools and libraries
+  - Added environment variables and deployment guidance
+- 2025-11-14 (v1.0): Initial comprehensive guideline created
 
 ---
 
