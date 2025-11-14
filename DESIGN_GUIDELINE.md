@@ -23,7 +23,7 @@ DotsBot consolidates all customer communications—social media, email, SMS, voi
 ### Key Differentiators
 1. **Modern Stack:** Not legacy PHP—Rails API + Vue 3 with Vite
 2. **Real-Time Everything:** ActionCable-powered live conversations
-3. **True Omnichannel:** 13+ channels in one unified inbox
+3. **True Omnichannel:** 12+ channels in one unified inbox
 4. **Developer Experience:** Clean APIs, composable components, embeddable SDK
 5. **Extensibility:** Marketplace integrations + custom webhooks
 
@@ -33,7 +33,201 @@ DotsBot consolidates all customer communications—social media, email, SMS, voi
 
 ### Page Sections (In Order)
 
-#### 2.1 Hero Section
+#### 2.1 Header & Navigation
+**Purpose:** Primary navigation, branding, and conversion-focused CTAs
+
+**Layout Structure:**
+- **Container:** Max-width 1200px with horizontal flexbox layout
+- **Logo:** Left-aligned, clickable link to homepage
+- **Navigation Menu:** Center-aligned (desktop), toggleable (mobile)
+- **CTA Buttons:** Right-aligned with primary and secondary actions
+
+**Components:**
+
+**Logo (Left Section):**
+- DotsBot logo/wordmark
+- Size: 32px height (desktop), 28px (mobile)
+- Links to homepage (/)
+- Includes hover effect (subtle opacity change)
+
+**Navigation Menu (Center Section):**
+- **Product** (Dropdown)
+  - Features
+  - Integrations
+  - API & SDK
+  - Use Cases
+- **Pricing** (Direct link)
+- **Resources** (Dropdown)
+  - Documentation
+  - Developer Docs
+  - Blog
+  - Help Center
+  - Support
+- **Company** (Dropdown - optional)
+  - About Us
+  - Careers
+  - Contact
+
+**CTA Buttons (Right Section):**
+- **Login** - Text link with underline on hover
+- **Talk to Sales** - Secondary button (outlined)
+- **Start Free Trial** - Primary button (filled)
+
+**Design Specifications:**
+
+**Desktop Header (≥1024px):**
+```css
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #ffffff;
+  border-bottom: 1px solid #E5E7EB;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.header__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  height: 32px;
+  transition: opacity 0.2s;
+}
+
+.header__logo:hover {
+  opacity: 0.8;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header__nav-item {
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.header__nav-item:hover {
+  color: #4F46E5;
+}
+
+.header__cta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+```
+
+**Dropdown Mega Menu:**
+```css
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  padding: 16px 0;
+  margin-top: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.dropdown.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown__item {
+  padding: 12px 24px;
+  font-size: 14px;
+  color: #4B5563;
+  transition: all 0.15s;
+}
+
+.dropdown__item:hover {
+  background: #F9FAFB;
+  color: #4F46E5;
+}
+```
+
+**Mobile Header (<1024px):**
+```css
+.header--mobile {
+  padding: 0 20px;
+  height: 64px;
+}
+
+.header__menu-toggle {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header__mobile-menu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  padding: 24px 20px;
+}
+
+.header__mobile-menu.open {
+  transform: translateX(0);
+}
+
+.header__mobile-nav-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+```
+
+**Sticky Behavior:**
+- Fixed position on scroll
+- Slight shadow appears on scroll
+- Background blur effect (backdrop-filter)
+- Smooth transition on scroll (0.2s)
+
+**Accessibility:**
+- Keyboard navigation support (Tab, Enter, Escape)
+- ARIA labels for dropdown menus
+- Focus indicators on all interactive elements
+- Screen reader friendly navigation
+
+**Mobile Menu:**
+- Hamburger icon (three horizontal lines)
+- Slide-in from right animation
+- Full-height overlay
+- Accordion-style dropdowns
+- Close button (X icon)
+
+---
+
+#### 2.2 Hero Section
 **Purpose:** Capture attention, communicate core value, drive action
 
 **Components:**
@@ -46,7 +240,7 @@ DotsBot consolidates all customer communications—social media, email, SMS, voi
 
 **Content Strategy:**
 - Headline: "Customer Conversations, All in One Place"
-- Subheadline: "Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers."
+- Subheadline: "Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers."
 - Visual: Dashboard screenshot showing unified inbox with multiple channel icons
 
 ---
@@ -61,7 +255,6 @@ DotsBot consolidates all customer communications—social media, email, SMS, voi
   - WhatsApp Business
   - Facebook Messenger
   - Instagram DM
-  - Twitter/X
   - Email
   - SMS
   - Telegram
@@ -200,7 +393,7 @@ DotsBot consolidates all customer communications—social media, email, SMS, voi
 
 **Sample Questions:**
 1. **What channels does DotsBot support?**
-   - "DotsBot supports 13+ channels including Facebook, WhatsApp, Instagram, Twitter, email, SMS, Telegram, Line, voice, and more."
+   - "DotsBot supports 12+ channels including Facebook, WhatsApp, Instagram, email, SMS, Telegram, Line, voice, web widget, API, and more."
 
 2. **Can I self-host DotsBot?**
    - "Yes! DotsBot is built for both SaaS and self-hosted deployments with a fully embeddable widget SDK."
@@ -838,7 +1031,7 @@ export const metadata: Metadata = {
     default: 'DotsBot - Unified Customer Messaging Platform',
     template: '%s | DotsBot',
   },
-  description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers. Unify conversations from social media, email, SMS, and more.',
+  description: 'Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers. Unify conversations from social media, email, SMS, and more.',
   keywords: ['customer messaging', 'unified inbox', 'support platform', 'omnichannel', 'real-time chat', 'customer service software'],
   authors: [{ name: 'DotsBot Team' }],
   creator: 'DotsBot',
@@ -853,7 +1046,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://dotsbot.com',
     title: 'DotsBot - Unified Customer Messaging Platform',
-    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers.',
     siteName: 'DotsBot',
     images: [
       {
@@ -867,7 +1060,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'DotsBot - Unified Customer Messaging Platform',
-    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers.',
     images: ['/og-image.png'],
     creator: '@dotsbot',
   },
@@ -912,6 +1105,7 @@ export default function RootLayout({
 
 ```tsx
 // app/page.tsx
+import Header from '@/components/layout/Header';
 import Hero from '@/components/sections/Hero';
 import Channels from '@/components/sections/Channels';
 import Features from '@/components/sections/Features';
@@ -925,20 +1119,251 @@ import Footer from '@/components/sections/Footer';
 
 export default function HomePage() {
   return (
-    <main>
-      <Hero />
-      <Channels />
-      <Features />
-      <HowItWorks />
-      <TechHighlights />
-      <Integrations />
-      <UseCases />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
-    </main>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Channels />
+        <Features />
+        <HowItWorks />
+        <TechHighlights />
+        <Integrations />
+        <UseCases />
+        <FAQ />
+        <FinalCTA />
+        <Footer />
+      </main>
+    </>
   );
 }
+```
+
+---
+
+#### Header Component (components/layout/Header.tsx) - Client Component
+
+```tsx
+// components/layout/Header.tsx
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import Button from '@/components/common/Button';
+
+const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navigationItems = [
+    {
+      label: 'Product',
+      href: '#',
+      dropdown: [
+        { label: 'Features', href: '/features' },
+        { label: 'Integrations', href: '/integrations' },
+        { label: 'API & SDK', href: '/developers' },
+        { label: 'Use Cases', href: '/use-cases' },
+      ],
+    },
+    {
+      label: 'Pricing',
+      href: '/pricing',
+    },
+    {
+      label: 'Resources',
+      href: '#',
+      dropdown: [
+        { label: 'Documentation', href: '/docs' },
+        { label: 'Developer Docs', href: '/developers/docs' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Help Center', href: '/help' },
+        { label: 'Support', href: '/support' },
+      ],
+    },
+  ];
+
+  return (
+    <header
+      className={`sticky top-0 z-50 transition-all duration-200 ${
+        isScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-sm'
+          : 'bg-white'
+      } border-b border-gray-200`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-18">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.svg"
+              alt="DotsBot"
+              width={120}
+              height={32}
+              className="h-8 w-auto transition-opacity hover:opacity-80"
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navigationItems.map((item) => (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                {item.dropdown ? (
+                  <button className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">
+                    {item.label}
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+
+                {/* Dropdown Menu */}
+                {item.dropdown && (
+                  <div
+                    className={`absolute top-full left-0 mt-2 min-w-[200px] bg-white border border-gray-200 rounded-lg shadow-lg py-2 transition-all duration-200 ${
+                      activeDropdown === item.label
+                        ? 'opacity-100 visible translate-y-0'
+                        : 'opacity-0 invisible -translate-y-2'
+                    }`}
+                  >
+                    {item.dropdown.map((subItem) => (
+                      <Link
+                        key={subItem.label}
+                        href={subItem.href}
+                        className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary-600 transition-colors"
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* CTA Buttons (Desktop) */}
+          <div className="hidden lg:flex items-center gap-4">
+            <Link
+              href="/login"
+              className="text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors"
+            >
+              Login
+            </Link>
+            <Button variant="secondary" size="small">
+              Talk to Sales
+            </Button>
+            <Button variant="primary" size="small">
+              Start Free Trial
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="px-6 py-4 space-y-4">
+            {navigationItems.map((item) => (
+              <div key={item.label}>
+                {item.dropdown ? (
+                  <div>
+                    <button
+                      className="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-700"
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === item.label ? null : item.label
+                        )
+                      }
+                    >
+                      {item.label}
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform ${
+                          activeDropdown === item.label ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                    {activeDropdown === item.label && (
+                      <div className="pl-4 mt-2 space-y-2">
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="block py-2 text-sm text-gray-600"
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="block py-2 text-sm font-medium text-gray-700"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+
+            {/* Mobile CTAs */}
+            <div className="pt-4 space-y-3 border-t border-gray-200">
+              <Link
+                href="/login"
+                className="block text-center text-sm font-medium text-gray-700"
+              >
+                Login
+              </Link>
+              <Button variant="secondary" size="medium" fullWidth>
+                Talk to Sales
+              </Button>
+              <Button variant="primary" size="medium" fullWidth>
+                Start Free Trial
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default Header;
 ```
 
 ---
@@ -970,7 +1395,7 @@ const Hero = () => {
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Modern messaging platform for support teams. Real-time inbox, 13+ channels,
+              Modern messaging platform for support teams. Real-time inbox, 12+ channels,
               built for developers.
             </p>
 
@@ -1186,7 +1611,6 @@ const channels = [
   { name: 'WhatsApp', icon: '/icons/whatsapp.svg', color: 'green' },
   { name: 'Facebook', icon: '/icons/facebook.svg', color: 'blue' },
   { name: 'Instagram', icon: '/icons/instagram.svg', color: 'red' },
-  { name: 'Twitter', icon: '/icons/twitter.svg', color: 'blue' },
   { name: 'Email', icon: '/icons/email.svg', color: 'orange' },
   { name: 'SMS', icon: '/icons/sms.svg', color: 'orange' },
   { name: 'Telegram', icon: '/icons/telegram.svg', color: 'blue' },
@@ -1194,6 +1618,7 @@ const channels = [
   { name: 'Voice', icon: '/icons/voice.svg', color: 'red' },
   { name: 'API', icon: '/icons/api.svg', color: 'gray' },
   { name: 'Web Widget', icon: '/icons/widget.svg', color: 'purple' },
+  { name: 'Custom', icon: '/icons/custom.svg', color: 'purple' },
 ];
 
 const Channels = () => {
@@ -1429,7 +1854,7 @@ export const metadata: Metadata = {
     default: 'DotsBot - Unified Customer Messaging Platform',
     template: '%s | DotsBot',
   },
-  description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers. Unify conversations from social media, email, SMS, and more.',
+  description: 'Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers. Unify conversations from social media, email, SMS, and more.',
 
   // Keywords for SEO
   keywords: [
@@ -1457,7 +1882,7 @@ export const metadata: Metadata = {
     url: 'https://dotsbot.com',
     siteName: 'DotsBot',
     title: 'DotsBot - Unified Customer Messaging Platform',
-    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers.',
     images: [
       {
         url: '/og-image.png',
@@ -1475,7 +1900,7 @@ export const metadata: Metadata = {
     site: '@dotsbot',
     creator: '@dotsbot',
     title: 'DotsBot - Unified Customer Messaging Platform',
-    description: 'Modern messaging platform for support teams. Real-time inbox, 13+ channels, built for developers.',
+    description: 'Modern messaging platform for support teams. Real-time inbox, 12+ channels, built for developers.',
     images: ['/twitter-image.png'],
   },
 
@@ -1674,7 +2099,7 @@ export function SoftwareApplicationSchema() {
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
     },
-    description: 'Unified customer messaging platform with real-time conversations across 13+ channels',
+    description: 'Unified customer messaging platform with real-time conversations across 12+ channels',
     featureList: [
       'Unified inbox',
       'Real-time messaging',
@@ -2258,9 +2683,9 @@ docs: update README with setup instructions
 |---------|-----------------|-------|
 | Website | Browser window | Blue (#3B82F6) |
 | WhatsApp | WhatsApp logo | Green (#10B981) |
+| WhatsApp Business | WhatsApp + briefcase | Green (#10B981) |
 | Facebook | Facebook logo | Blue (#3B82F6) |
 | Instagram | Instagram logo | Red gradient (#EF4444) |
-| Twitter/X | X logo | Blue (#3B82F6) |
 | Email | Envelope | Orange (#F59E0B) |
 | SMS | Message bubble | Orange (#F59E0B) |
 | Telegram | Telegram plane | Blue (#3B82F6) |
@@ -2268,7 +2693,7 @@ docs: update README with setup instructions
 | Voice | Phone icon | Red (#EF4444) |
 | API | Code brackets | Gray (#6B7280) |
 | Web Widget | Widget/embed icon | Purple (#7C3AED) |
-| WhatsApp Business | WhatsApp + briefcase | Green (#10B981) |
+| Custom | Puzzle piece or custom icon | Purple (#7C3AED) |
 
 ---
 
