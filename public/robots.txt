@@ -1,0 +1,6 @@
+# robots.txt for DotsBot Landing Page
+
+User-agent: *
+Allow: /
+
+Sitemap: https://dotsbot.com/sitemap.xml
